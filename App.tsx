@@ -112,10 +112,7 @@ function App(): JSX.Element {
           <AlertsProvider>
             <NavigationContainer
               linking={{
-                prefixes: [
-                  "invertase.github.io/react-native-firebase-authentication-example",
-                  "localhost",
-                ],
+                prefixes: ["localhost"],
                 config: {
                   screens: {
                     // Our signed-out stack has these:
