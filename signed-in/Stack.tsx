@@ -3,12 +3,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useAppSettings } from "../components/AppSettings";
 import { NotFound } from "../components/NotFound";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { App as GettingStarted } from "./App";
+import GettingStarted from "./App";
 import Profile from "./Profile";
 import Settings from "./Settings";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "@expo/vector-icons/MaterialIcons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import Signature from "./Signature";
 
 const Stack = createStackNavigator();
 const TopTabs = createMaterialTopTabNavigator();
+const BottomTab = createBottomTabNavigator();
 
 const ProfileStack = () => {
   const appSettings = useAppSettings();
@@ -21,7 +26,7 @@ const ProfileStack = () => {
       />
       <Stack.Screen
         name="UserSettings"
-        options={{ title: appSettings.t("settings") }}
+        options={{ title: appSettings.t("settings"), headerShown: false }}
         component={Settings}
       />
       <Stack.Screen
@@ -34,6 +39,52 @@ const ProfileStack = () => {
 };
 
 const SignedIn = () => {
+  const appSettings = useAppSettings();
+
+  return (
+    <BottomTab.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerShown: false }}
+    >
+      <BottomTab.Screen
+        name="Home"
+        options={{
+          title: appSettings.t("gettingStarted"),
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" size={30} color={color} />
+          ),
+        }}
+        component={GettingStarted}
+      />
+      <BottomTab.Screen
+        name="Signature"
+        options={{
+          title: appSettings.t("signature"),
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="file-document-edit-outline"
+              size={30}
+              color={color}
+            />
+          ),
+        }}
+        component={Signature}
+      />
+      <BottomTab.Screen
+        name="User"
+        options={{
+          title: appSettings.t("userInfo"),
+          tabBarIcon: ({ color }) => (
+            <Icon name="person" size={30} color={color} />
+          ),
+        }}
+        component={ProfileStack}
+      />
+    </BottomTab.Navigator>
+  );
+};
+// SignedIn
+const TopTabStack = () => {
   // Used for status bar layout in react-navigation
   const insets = useSafeAreaInsets();
   const appSettings = useAppSettings();
