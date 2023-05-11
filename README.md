@@ -64,3 +64,11 @@ import 'react-native-gesture-handler';
 14. add type of i18n-js `yarn add @types/i18n-js@3.8.2`
 
 15. add google analytics `yarn add @react-native-firebase/analytics`
+
+16. add country picker `yarn add react-native-country-picker-modal`
+
+17. add lib phone number `yarn add libphonenumber-js`
+
+18. add signature view `yarn add react-native-signature-canvas`
+
+- add react native webview as its the depedency use `npx expo install react-native-webview`

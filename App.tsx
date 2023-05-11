@@ -96,7 +96,7 @@ function App(): JSX.Element {
               size={"large"}
               theme={{
                 ...appSettings.currentTheme,
-                colors: { primary: appSettings.currentTheme.colors.accent },
+                colors: { primary: appSettings.currentTheme.colors.primary },
               }}
             />
           </Fragment>
@@ -109,6 +109,7 @@ function App(): JSX.Element {
     return (
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <PaperProvider theme={appSettings.currentTheme}>
+          {/* @ts-ignore */}
           <AlertsProvider>
             <NavigationContainer
               linking={{
