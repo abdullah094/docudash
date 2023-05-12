@@ -180,4 +180,7 @@ export const spanish: translation = {
     "Demasiado códigos pedidos demasiado rápido. Por favor espere un rato y intente de nuevo más tarde.",
   "auth/invalid-credential":
     "Error en validación. Por favor cierre la app, ábrela de nuevo, y re-intentar",
+  WelcomeMessage: "Bienvenida a la docudash",
+  "Notarize Instantly": "Notarizar al instante",
+  "Anywhere, Anytime": "En cualquier lugar en cualquier momento",
 };

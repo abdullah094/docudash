@@ -1,10 +1,23 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { StyleSheet, View } from "react-native";
+import { useTheme } from "react-native-paper";
+import Phone from "../auth-providers/Phone";
 
-export default function PhoneSignIn() {
+function PhoneSignIn(): JSX.Element {
+  const theme = useTheme();
   return (
-    <View>
-      <Text>PhoneSignIn</Text>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.backdrop }]}
+    >
+      <Phone />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+});
+
+export default PhoneSignIn;

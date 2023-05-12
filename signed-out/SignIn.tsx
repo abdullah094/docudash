@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import { Platform, StyleSheet, View } from "react-native";
-import { Button, useTheme } from "react-native-paper";
+import { Platform, StyleSheet, View, Image } from "react-native";
+import { Button, Text, useTheme } from "react-native-paper";
 import { useLinkTo } from "@react-navigation/native";
 import Hero from "../components/Hero";
 import ProviderButton from "../components/AuthProviderButton";
@@ -9,6 +9,7 @@ import Facebook from "../auth-providers/Facebook";
 import Google from "../auth-providers/Google";
 import Apple from "../auth-providers/Apple";
 import { useAppSettings } from "../components/AppSettings";
+import { ScrollView } from "react-native-gesture-handler";
 
 function SignIn() {
   const theme = useTheme();
@@ -16,54 +17,55 @@ function SignIn() {
   const linkTo = useLinkTo();
 
   return (
-    <Fragment>
-      <Hero
-        height={300}
-        image={
-          "https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-        }
-      >
-        <EmailPassword />
-      </Hero>
-
-      <View style={styles.center}>
-        <Button
-          color="#9e9e9e"
-          onPress={() => {
-            linkTo("/account/password/forgot");
-          }}
-          style={styles.button}
+    <ScrollView>
+      <Fragment>
+        <Hero
+          height={400}
+          image={
+            "https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+          }
         >
-          {appSettings.t("forgotPassword")}
-        </Button>
-        <Button
-          mode="contained"
-          icon="plus"
-          onPress={() => {
-            linkTo("/account/create");
-          }}
-          style={styles.button}
-        >
-          {appSettings.t("createAnAccount")}
-        </Button>
+          <EmailPassword />
+        </Hero>
+        <View style={styles.center}>
+          <Button
+            color="#9e9e9e"
+            onPress={() => {
+              linkTo("/account/password/forgot");
+            }}
+            style={styles.button}
+          >
+            {appSettings.t("forgotPassword")}
+          </Button>
+          <Button
+            mode="contained"
+            icon="plus"
+            onPress={() => {
+              linkTo("/account/create");
+            }}
+            style={styles.button}
+          >
+            {appSettings.t("createAnAccount")}
+          </Button>
 
-        <View
-          style={[styles.divider, { backgroundColor: theme.colors.primary }]}
-        />
+          <View
+            style={[styles.divider, { backgroundColor: theme.colors.primary }]}
+          />
 
-        {Platform.OS !== "web" && <Facebook />}
-        {Platform.OS !== "web" && <Google />}
-        {Platform.OS !== "web" && <Apple />}
-        <ProviderButton
-          type="phone"
-          onPress={() => {
-            linkTo("/account/phone/login");
-          }}
-        >
-          {appSettings.t("phoneSignIn")}
-        </ProviderButton>
-      </View>
-    </Fragment>
+          {Platform.OS !== "web" && <Facebook />}
+          {Platform.OS !== "web" && <Google />}
+          {Platform.OS !== "web" && <Apple />}
+          <ProviderButton
+            type="phone"
+            onPress={() => {
+              linkTo("/account/phone/login");
+            }}
+          >
+            {appSettings.t("phoneSignIn")}
+          </ProviderButton>
+        </View>
+      </Fragment>
+    </ScrollView>
   );
 }
 

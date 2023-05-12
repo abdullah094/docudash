@@ -102,6 +102,7 @@ export const english: translation = {
 
   // Firebase auth error messages - from firebase error catalog
   unknownError: "An unexpected error occurred. Please try again.",
+
   "invalid-session": "Invalid Session",
   "invalid-session-message": "Your session is invalid, please login again",
   "registration-error": "Registration Error",
@@ -175,4 +176,7 @@ export const english: translation = {
     "Too many codes requested too quickly. Please wait before trying again.",
   "auth/invalid-credential":
     "Authentication failure. Please close the app, re-open, and try again.",
+  WelcomeMessage: "Welcome to the Docudash",
+  "Notarize Instantly": "Notarize Instantly",
+  "Anywhere, Anytime": "Anywhere, Anytime",
 };
