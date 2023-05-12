@@ -75,13 +75,14 @@ function EmailPassword(): JSX.Element {
     <View style={styles.form}>
       <View style={tw`flex flex-col items-center`}>
         <Text variant="titleLarge" style={tw`text-white`}>
-          Welcome to the Docudash
+          {appSettings.t("WelcomeMessage")}
         </Text>
         <Text variant="titleMedium" style={tw`text-white`}>
+          {appSettings.t("Notarize Instantly")}
           Notarize Instantly
         </Text>
         <Text variant="titleMedium" style={tw`text-white`}>
-          Anywhere, Anytime
+          {appSettings.t("Anywhere, Anytime")}
         </Text>
       </View>
 
