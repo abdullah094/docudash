@@ -72,3 +72,6 @@ import 'react-native-gesture-handler';
 18. add signature view `yarn add react-native-signature-canvas`
 
 - add react native webview as its the depedency use `npx expo install react-native-webview`
+
+19. add react-native-pdf-lib for pdf editing
+    `yarn add react-native-pdf-lib`

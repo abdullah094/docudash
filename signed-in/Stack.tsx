@@ -44,7 +44,7 @@ const SignedIn = () => {
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      screenOptions={{ headerShown: false }}
+      // screenOptions={{ headerShown: false }}
     >
       <BottomTab.Screen
         name="Home"

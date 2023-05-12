@@ -44,11 +44,11 @@ const Signature = () => {
       .m-signature-pad--footer {display: none; margin: 0px;}`;
   return (
     <View style={{ flex: 1 }}>
-      <Appbar.Header mode="small">
+      <Appbar mode="small">
         <Appbar.Content title="Signature" />
         <Appbar.Action icon="content-save" onPress={saveSign} />
         <Appbar.Action icon="delete-outline" onPress={resetSign} />
-      </Appbar.Header>
+      </Appbar>
       <View style={{ height: windowHeight, width: windowWidth }}>
         <SignatureScreen
           ref={signatureView}
