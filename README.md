@@ -73,5 +73,29 @@ import 'react-native-gesture-handler';
 
 - add react native webview as its the depedency use `npx expo install react-native-webview`
 
-19. add react-native-pdf-lib for pdf editing
-    `yarn add react-native-pdf-lib`
+20. add file picker
+    `npx expo install expo-document-picker `
+
+21. add mime type
+    `yarn add react-native-mime-types`
+
+22. at moment.js for the time
+    `yarn add moment`
+
+23. add react native maps
+    `npx expo install react-native-maps`
+
+24. create .env file and save the key there
+
+25. add react native dotenv to project `yarn add react-native-dotenv`
+
+26. add google place autoComplete `yarn add react-native-google-places-autocomplete`
+
+27. add rating star
+    `yarn add react-native-star-rating-widget`
+
+28. add react native svg
+    `npx expo install react-native-svg`
+
+29. add pdf lib
+    `yarn add pdf-lib`

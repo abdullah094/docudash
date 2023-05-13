@@ -1,5 +1,5 @@
 import appJson from "./app.json";
-import { StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet, View } from "react-native";
 import { createContext, Fragment, ReactNode, useEffect, useState } from "react";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import {
@@ -128,6 +128,8 @@ function App(): JSX.Element {
                     User: "user",
                     UserProfile: "profile",
                     UserSettings: "profile/edit",
+                    Documents: "documents",
+                    Signature: "documents/signature",
                   },
                 },
               }}

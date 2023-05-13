@@ -21,3 +21,4 @@ ios/
 android/
 google-services.json
 GoogleService-Info.plist
+.env

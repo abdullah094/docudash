@@ -10,6 +10,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "@expo/vector-icons/MaterialIcons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Signature from "./Signature";
+import Map from "./Map";
+import Details from "./Details";
 
 const Stack = createStackNavigator();
 const TopTabs = createMaterialTopTabNavigator();
@@ -38,6 +40,51 @@ const ProfileStack = () => {
   );
 };
 
+const SignatureStack = () => {
+  const appSettings = useAppSettings();
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="Documents"
+        component={GettingStarted}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Signature"
+        options={{ title: appSettings.t("settings"), headerShown: false }}
+        component={Signature}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFound}
+        options={{ title: appSettings.t("NotFound") }}
+      />
+    </Stack.Navigator>
+  );
+};
+const MapStack = () => {
+  const appSettings = useAppSettings();
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen
+        name="MapHome"
+        component={Map}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Details"
+        options={{ title: appSettings.t("settings"), headerShown: false }}
+        component={Details}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFound}
+        options={{ title: appSettings.t("NotFound") }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const SignedIn = () => {
   const appSettings = useAppSettings();
 
@@ -54,12 +101,12 @@ const SignedIn = () => {
             <Icon name="home" size={30} color={color} />
           ),
         }}
-        component={GettingStarted}
+        component={SignatureStack}
       />
       <BottomTab.Screen
-        name="Signature"
+        name="Map"
         options={{
-          title: appSettings.t("signature"),
+          title: appSettings.t("Map"),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="file-document-edit-outline"
@@ -68,7 +115,7 @@ const SignedIn = () => {
             />
           ),
         }}
-        component={Signature}
+        component={MapStack}
       />
       <BottomTab.Screen
         name="User"
