@@ -12,6 +12,12 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Signature from "./Signature";
 import Map from "./Map";
 import Details from "./Details";
+import ContactsScreen from "./ContactsScreen";
+import CallScreen from "./CallScreen";
+import CallingScreen from "./CallingScreen";
+import IncomingCallScreen from "./IncomingCallScreen";
+import { Voximplant } from "react-native-voximplant";
+import { useEffect, useState } from "react";
 
 const Stack = createStackNavigator();
 const TopTabs = createMaterialTopTabNavigator();
@@ -85,7 +91,55 @@ const MapStack = () => {
   );
 };
 
+const CallNavigation = () => {
+  const appSettings = useAppSettings();
+  return (
+    <Stack.Navigator>
+      {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+      <Stack.Screen name="Contacts" component={ContactsScreen} />
+
+      <Stack.Group screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Call" component={CallScreen} />
+        <Stack.Screen name="Calling" component={CallingScreen} />
+        <Stack.Screen name="IncomingCall" component={IncomingCallScreen} />
+      </Stack.Group>
+    </Stack.Navigator>
+  );
+};
+
 const SignedIn = () => {
+  const [login, setLogin] = useState(false);
+  // docudash.wizard.n2.voximplant.com
+  const username = "darkwaqar";
+  const APP_NAME = "docudash";
+  const ACC_NAME = "wizard.n2";
+  const password = "123123";
+  const voximplant = Voximplant.getInstance();
+  useEffect(() => {
+    const connect = async () => {
+      const status = await voximplant.getClientState();
+      if (status === Voximplant.ClientState.DISCONNECTED) {
+        await voximplant.connect();
+      } else if (status === Voximplant.ClientState.LOGGED_IN) {
+        setLogin(true);
+      }
+    };
+
+    connect();
+    signIn();
+  }, []);
+
+  const signIn = async () => {
+    try {
+      const fqUsername = `${username}@${APP_NAME}.${ACC_NAME}.voximplant.com`;
+      console.log(fqUsername);
+      await voximplant.login(fqUsername, password);
+    } catch (e) {
+      console.log(e);
+      // alert.alert(e.name, `Error code: ${e.code}`);
+    }
+  };
+
   const appSettings = useAppSettings();
 
   return (
@@ -117,6 +171,23 @@ const SignedIn = () => {
         }}
         component={MapStack}
       />
+      {login && (
+        <BottomTab.Screen
+          name="CallingStack"
+          options={{
+            title: appSettings.t("Calling"),
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="file-document-edit-outline"
+                size={30}
+                color={color}
+              />
+            ),
+          }}
+          component={CallNavigation}
+        />
+      )}
+
       <BottomTab.Screen
         name="User"
         options={{

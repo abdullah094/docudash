@@ -99,3 +99,8 @@ import 'react-native-gesture-handler';
 
 29. add pdf lib
     `yarn add pdf-lib`
+
+30. add video call library
+    `yarn add react-native-voximplant@latest`
+
+- Run the expo command using Rosetta -> arch -x86_64 npx expo run:ios

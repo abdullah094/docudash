@@ -8946,6 +8946,11 @@ react-native-tab-view@^3.5.1:
   dependencies:
     use-latest-callback "^0.1.5"
 
+react-native-voximplant@^1.36.0:
+  version "1.36.0"
+  resolved "https://registry.yarnpkg.com/react-native-voximplant/-/react-native-voximplant-1.36.0.tgz#6fca8bf1a868a44105fc278c87a9d28a2f33dfbb"
+  integrity sha512-Kx4TjtH9811Zejal4dbQmPsCkuxVm+gSn4cuYB81akKP1cP19KVovqSNBhcdMAntXrguM7jo14ny2EWzSdmMdA==
+
 react-native-web@~0.18.10:
   version "0.18.12"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.18.12.tgz#d4bb3a783ece2514ba0508d7805b09c0a98f5a8e"
