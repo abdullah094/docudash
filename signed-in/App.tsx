@@ -18,8 +18,6 @@ export default function App() {
       copyToCacheDirectory: false,
     });
     copyFileToAppDirectory(result);
-    // setDocuments((prev) => [...prev, result]);
-    console.log(result);
   };
   const copyFileToAppDirectory = async (
     result: DocumentPicker.DocumentResult
@@ -40,11 +38,11 @@ export default function App() {
         );
       }
       //filename
-      const fileName = sourceUri.substring(sourceUri.lastIndexOf("/") + 1);
+      const decodedUri = decodeURIComponent(sourceUri);
+      const fileName = decodedUri.substring(decodedUri.lastIndexOf("/") + 1);
       // Create a destination file URI in the application's document directory
       const destinationUri =
         FileSystem.documentDirectory + "docudash/" + fileName;
-
       // Copy the file to the application directory
       await FileSystem.copyAsync({
         from: sourceUri,

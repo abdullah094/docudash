@@ -164,6 +164,7 @@ const Signature = () => {
       encoding: FileSystem.EncodingType.Base64,
     }).then((data) => {
       console.log("File saved:", data);
+      navigation.goBack();
     });
 
     // For example, `pdfBytes` can be:

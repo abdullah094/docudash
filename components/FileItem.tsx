@@ -34,7 +34,6 @@ export default function FileItem({ item }: Props) {
   const itemType: string = item.isDirectory ? "dir" : itemMime.split("/")[0];
   const itemFormat: string = item.isDirectory ? "dir" : itemMime.split("/")[1];
   const fileName = item.uri.substring(item.uri.lastIndexOf("/") + 1);
-  console.log(fileName, itemMime, itemType, itemFormat);
   const ThumbnailImage = ({ uri }) => {
     return (
       <Image

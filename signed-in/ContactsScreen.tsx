@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   FlatList,
@@ -10,10 +10,14 @@ import {
 import { useNavigation } from "@react-navigation/core";
 import { Voximplant } from "react-native-voximplant";
 import dummyContacts from "../assets/data/contacts.json";
+import { UserContext } from "../App";
 
 const ContactsScreen = () => {
+  const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredContacts, setFilteredContacts] = useState(dummyContacts);
+  const [filteredContacts, setFilteredContacts] = useState(
+    dummyContacts.filter((x) => x.user_name !== user?.email?.split("@")[0])
+  );
 
   const navigation = useNavigation();
   const voximplant = Voximplant.getInstance();
@@ -28,12 +32,12 @@ const ContactsScreen = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const newContacts = dummyContacts.filter((contact) =>
-      contact.user_display_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredContacts(newContacts);
-  }, [searchTerm]);
+  // useEffect(() => {
+  //   const newContacts = dummyContacts.filter((contact) =>
+  //     contact.user_display_name.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  //   setFilteredContacts(newContacts);
+  // }, [searchTerm]);
 
   const callUser = (user) => {
     navigation.navigate("Calling", { user });

@@ -104,3 +104,20 @@ import 'react-native-gesture-handler';
     `yarn add react-native-voximplant@latest`
 
 - Run the expo command using Rosetta -> arch -x86_64 npx expo run:ios
+
+31. add new sanario to the vox
+
+```
+VoxEngine.addEventListener(AppEvents.CallAlerting ,(e)=>{
+    const newCall = VoxEngine.callUserDirect(
+        e.call,
+        e.destination,
+        e.callerid,
+        e.displayName,
+        null
+    )
+    VoxEngine.easyProcess(e.call,newCall,()=>{},true)
+})
+```
+
+31. go to routing the the vox admin and add new rule/

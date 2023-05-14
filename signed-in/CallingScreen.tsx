@@ -72,6 +72,7 @@ const CallingScreen = () => {
     };
 
     const makeCall = async () => {
+      console.log(user.user_name);
       call.current = await voximplant.call(user.user_name, callSettings);
       subscribeToCallEvents();
     };
@@ -85,6 +86,7 @@ const CallingScreen = () => {
 
     const subscribeToCallEvents = () => {
       call.current.on(Voximplant.CallEvents.Failed, (callEvent) => {
+        console.log(callEvent);
         showError(callEvent.reason);
       });
       call.current.on(Voximplant.CallEvents.ProgressToneStart, (callEvent) => {
