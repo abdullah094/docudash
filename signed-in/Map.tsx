@@ -194,13 +194,13 @@ const SearchScreen = () => {
            
         
           </TextInput> */}
-            <View
+            {/* <View
               style={{
                 marginTop: 10,
                 flexDirection: "row",
                 alignItems: "center",
               }}
-            >
+            > */}
               <GooglePlacesAutocomplete
                 placeholder="Search for Notaries based in your city"
                 styles={{
@@ -251,7 +251,7 @@ const SearchScreen = () => {
               {/* <Pressable>
           <EvilIcons name='close-o' size={35} color={Colors.white}/>
           </Pressable> */}
-            </View>
+            {/* </View> */}
           </View>
         </View>
         <TouchableWithoutFeedback
@@ -312,5 +312,6 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+    
   },
 });

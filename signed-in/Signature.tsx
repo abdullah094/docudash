@@ -15,6 +15,7 @@ import {
   StandardFonts,
 } from "pdf-lib";
 import { RNFetchBlob } from "rn-fetch-blob";
+import Loading from "../components/Loading";
 interface savedFile {
   exists: boolean;
   isDirectory: boolean;
@@ -27,7 +28,7 @@ const Signature = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const pdfPath = route.params?.path;
-
+const [isvisible, setIsvisible] = useState(false)
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const [scrollEnabled, setScrollEnabled] = useState(true);
@@ -37,6 +38,7 @@ const Signature = () => {
 
   const saveSign = () => {
     signatureView.current.readSignature();
+
   };
 
   const resetSign = () => {
@@ -45,6 +47,8 @@ const Signature = () => {
   };
 
   const onSave = function (signature) {
+    
+
     EditPdf(signature);
     // const path = FileSystem.cacheDirectory + "sign.png";
     // FileSystem.writeAsStringAsync(
@@ -101,6 +105,7 @@ const Signature = () => {
   };
 
   const EditPdf = async (imageURI) => {
+    setIsvisible(true)
     // const existingPDF =
     //   Platform.OS === "ios" ? pdfPath.replace("file://", "") : pdfPath;
     // // console.log("existingPDF", existingPDF);
@@ -135,14 +140,14 @@ const Signature = () => {
     const { width, height } = firstPage.getSize();
 
     // Draw a string of text diagonally across the first page
-    firstPage.drawText("This text was added with JavaScript!", {
-      x: 5,
-      y: height / 2 + 300,
-      size: 50,
-      font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
-      rotate: degrees(-45),
-    });
+    // firstPage.drawText("This text was added with JavaScript!", {
+    //   x: 5,
+    //   y: height / 2 + 300,
+    //   size: 50,
+    //   font: helveticaFont,
+    //   color: rgb(0.95, 0.1, 0.1),
+    //   rotate: degrees(-45),
+    // });
     // Embed the JPG image bytes and PNG image bytes
     const pngImage = await pdfDoc.embedPng(imageURI);
     // Get the width/height of the JPG image scaled down to 25% of its original size
@@ -152,7 +157,7 @@ const Signature = () => {
     // Draw the PNG image near the lower right corner of the JPG image
     firstPage.drawImage(pngImage, {
       x: 200,
-      y: 200,
+      y: 10,
       width: 400,
       height: 400,
     });
@@ -164,13 +169,14 @@ const Signature = () => {
       encoding: FileSystem.EncodingType.Base64,
     }).then((data) => {
       console.log("File saved:", data);
-      navigation.goBack();
+      navigation.navigate('Documents')
     });
 
     // For example, `pdfBytes` can be:
     //   • Written to a file in Node
     //   • Downloaded from the browser
     //   • Rendered in an <iframe>
+    setIsvisible(false)
   };
 
   const style = `
@@ -181,12 +187,19 @@ const Signature = () => {
     body,html {
     width: ${windowWidth}px; height: ${windowHeight}px;
       .m-signature-pad--footer {display: none; margin: 0px;}`;
-  return (
+
+   if(isvisible)
+    return(
+      <Loading visible={isvisible}/>
+    )  
+    
+    return (
     <View style={{ flex: 1 }}>
       <Appbar mode="small">
         <Appbar.Content title="Signature" />
         <Appbar.Action icon="content-save" onPress={saveSign} />
         <Appbar.Action icon="delete-outline" onPress={resetSign} />
+        
       </Appbar>
       <View style={{ height: windowHeight, width: windowWidth }}>
         <SignatureScreen

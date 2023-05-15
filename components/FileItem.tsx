@@ -81,7 +81,7 @@ export default function FileItem({ item }: Props) {
         <TouchableOpacity
           style={styles.itemLeft}
           activeOpacity={0.5}
-          onPress={() => navigation.navigate("Signature", { path: item.uri })}
+          onPress={() => navigation.navigate("Browser", { path: item.uri })}
         >
           <View style={styles.itemThumbnail}>
             {itemType && <ItemThumbnail />}

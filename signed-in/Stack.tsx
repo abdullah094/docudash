@@ -21,6 +21,9 @@ import { useContext, useEffect, useState } from "react";
 import { getProviders } from "../util/helpers";
 import { UserContext } from "../App";
 import { Alert } from "react-native";
+import Schedule from "./Schedule";
+import ScheduleForm from "./ScheduleForm";
+import Browser from "./Browser";
 
 const Stack = createStackNavigator();
 const TopTabs = createMaterialTopTabNavigator();
@@ -63,6 +66,11 @@ const SignatureStack = () => {
         options={{ title: appSettings.t("settings"), headerShown: false }}
         component={Signature}
       />
+       <Stack.Screen
+         name="Browser"
+         component={Browser}
+         options={{ title: appSettings.t("Browser"),headerShown: false }}
+       />
       <Stack.Screen
         name="NotFound"
         component={NotFound}
@@ -74,7 +82,7 @@ const SignatureStack = () => {
 const MapStack = () => {
   const appSettings = useAppSettings();
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Home" >
       <Stack.Screen
         name="MapHome"
         component={Map}
@@ -85,6 +93,17 @@ const MapStack = () => {
         options={{ title: appSettings.t("settings"), headerShown: false }}
         component={Details}
       />
+        <Stack.Screen
+         name="Schedule"
+         component={Schedule}
+         options={{ title: appSettings.t("Schedule"),headerShown: false }}
+       />
+        <Stack.Screen
+         name="ScheduleForm"
+         component={ScheduleForm}
+         options={{ title: appSettings.t("ScheduleForm"),headerShown: false }}
+       />
+      
       <Stack.Screen
         name="NotFound"
         component={NotFound}

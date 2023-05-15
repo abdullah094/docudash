@@ -179,4 +179,6 @@ export const english: translation = {
   WelcomeMessage: "Welcome to the Docudash",
   "Notarize Instantly": "Notarize Instantly",
   "Anywhere, Anytime": "Anywhere, Anytime",
+  "Schedule":"Schedule",
+  "Map":"Map"
 };

@@ -4,6 +4,7 @@ import {
   Touchable,
   TouchableOpacity,
   FlatList,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as DocumentPicker from "expo-document-picker";
@@ -11,7 +12,12 @@ import tw from "twrnc";
 import { List } from "react-native-paper";
 import FileItem from "../components/FileItem";
 import * as FileSystem from "expo-file-system";
+import { useNavigation } from "@react-navigation/native";
+
+
+
 export default function App() {
+const navigation = useNavigation();
   const [documents, setDocuments] = useState<FileSystem.FileInfo[]>([]);
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({
@@ -59,6 +65,7 @@ export default function App() {
     }
   };
   const listItemsInDirectory = async () => {
+    setDocuments([])
     const directoryUri = FileSystem.documentDirectory + "docudash";
     try {
       // Read the directory contents
@@ -91,6 +98,7 @@ export default function App() {
       <TouchableOpacity onPress={pickDocument}>
         <Text>Get document</Text>
       </TouchableOpacity>
+
       <FlatList
         data={documents}
         renderItem={({ item }) => <FileItem item={item}></FileItem>}
