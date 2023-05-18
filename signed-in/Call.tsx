@@ -2,11 +2,11 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import CallActionBox from "../components/CallActionBox";
 
-const CallScreen = () => {
+const Call = () => {
   return (
     <View style={styles.page}>
       <View style={styles.cameraPreview} />
-      <CallActionBox />
+      <CallActionBox onHangupPress={null} />
     </View>
   );
 };
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CallScreen;
+export default Call;

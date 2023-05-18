@@ -11,21 +11,23 @@ import {
 import CallActionBox from "../components/CallActionBox";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/core";
+// @ts-ignore
 import { Voximplant } from "react-native-voximplant";
+import { DocumentNavigationProps, DocumentRouteProps } from "../types";
 
 const permissions = [
   PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
   PermissionsAndroid.PERMISSIONS.CAMERA,
 ];
 
-const CallingScreen = () => {
+const Calling = () => {
   const [permissionGranted, setPermissionGranted] = useState(false);
   const [callStatus, setCallStatus] = useState("Initializing...");
   const [localVideoStreamId, setLocalVideoStreamId] = useState("");
   const [remoteVideoStreamId, setRemoteVideoStreamId] = useState("");
 
-  const navigation = useNavigation();
-  const route = useRoute();
+  const navigation = useNavigation<DocumentNavigationProps<"Calling">>();
+  const route = useRoute<DocumentRouteProps<"Calling">>();
 
   const { user, call: incomingCall, isIncomingCall } = route?.params;
 
@@ -222,4 +224,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CallingScreen;
+export default Calling;

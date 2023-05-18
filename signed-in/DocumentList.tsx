@@ -8,10 +8,9 @@ import {
 import React, { useEffect, useState } from "react";
 import * as DocumentPicker from "expo-document-picker";
 import tw from "twrnc";
-import { List } from "react-native-paper";
 import FileItem from "../components/FileItem";
 import * as FileSystem from "expo-file-system";
-export default function App() {
+export default function DocumentList() {
   const [documents, setDocuments] = useState<FileSystem.FileInfo[]>([]);
   const pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({
@@ -24,6 +23,7 @@ export default function App() {
   ) => {
     try {
       // Get the source file URI
+      // @ts-ignore
       const sourceUri = result.uri; // Replace with the actual file URI
 
       // Read the PDF file
@@ -59,6 +59,7 @@ export default function App() {
     }
   };
   const listItemsInDirectory = async () => {
+    setDocuments([]);
     const directoryUri = FileSystem.documentDirectory + "docudash";
     try {
       // Read the directory contents

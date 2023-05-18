@@ -8,18 +8,20 @@ import {
   Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+// @ts-ignore
 import { Voximplant } from "react-native-voximplant";
 import dummyContacts from "../assets/data/contacts.json";
 import { UserContext } from "../App";
+import { DocumentNavigationProps } from "../types";
 
-const ContactsScreen = () => {
+const ContactList = () => {
   const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredContacts, setFilteredContacts] = useState(
     dummyContacts.filter((x) => x.user_name !== user?.email?.split("@")[0])
   );
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<DocumentNavigationProps<"ContactList">>();
   const voximplant = Voximplant.getInstance();
 
   useEffect(() => {
@@ -86,4 +88,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContactsScreen;
+export default ContactList;

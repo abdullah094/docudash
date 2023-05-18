@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  ImageURISource,
 } from "react-native";
 
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -22,6 +23,7 @@ import { fileIcons } from "../util/Constants";
 import { fileItem } from "../type";
 
 import * as FileSystem from "expo-file-system";
+import { DocumentNavigationProps, DocumentRouteProps } from "../types";
 type Props = {
   item: FileSystem.FileInfo;
 };
@@ -29,12 +31,12 @@ type Props = {
 export default function FileItem({ item }: Props) {
   // const linkTo = useLinkTo();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<DocumentNavigationProps<"DocumentList">>();
   const itemMime = mime.lookup(item.uri) || " ";
   const itemType: string = item.isDirectory ? "dir" : itemMime.split("/")[0];
   const itemFormat: string = item.isDirectory ? "dir" : itemMime.split("/")[1];
   const fileName = item.uri.substring(item.uri.lastIndexOf("/") + 1);
-  const ThumbnailImage = ({ uri }) => {
+  const ThumbnailImage = ({ uri }: { uri: string }) => {
     return (
       <Image
         style={styles.image}
@@ -59,6 +61,7 @@ export default function FileItem({ item }: Props) {
       case "application":
         return (
           <MaterialCommunityIcons
+            // @ts-ignore
             name={fileIcons[itemFormat] || "file-outline"}
             size={35}
           />
@@ -66,6 +69,7 @@ export default function FileItem({ item }: Props) {
       case "text":
         return (
           <MaterialCommunityIcons
+            // @ts-ignore
             name={fileIcons[itemFormat] || "file-outline"}
             size={35}
           />
@@ -81,7 +85,8 @@ export default function FileItem({ item }: Props) {
         <TouchableOpacity
           style={styles.itemLeft}
           activeOpacity={0.5}
-          onPress={() => navigation.navigate("Signature", { path: item.uri })}
+          // onPress={() => navigation.navigate("Signature", { path: item.uri })}
+          onPress={() => navigation.navigate("PDFViewer", { path: item.uri })}
         >
           <View style={styles.itemThumbnail}>
             {itemType && <ItemThumbnail />}
@@ -91,6 +96,7 @@ export default function FileItem({ item }: Props) {
               {decodeURI(fileName)}
             </Text>
             <Text style={{ ...styles.fileDetailText }}>
+              {/* @ts-ignore */}
               {moment(item.modificationTime * 1000).fromNow()}
             </Text>
           </View>

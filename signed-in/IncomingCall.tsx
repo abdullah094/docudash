@@ -11,19 +11,21 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Entypo from "@expo/vector-icons/Entypo";
 import Feather from "@expo/vector-icons/Feather";
 import { useRoute, useNavigation } from "@react-navigation/native";
+// @ts-ignore
 import { Voximplant } from "react-native-voximplant";
+import { DocumentNavigationProps, DocumentRouteProps } from "../types";
 
-const IncomingCallScreen = () => {
+const IncomingCall = () => {
   const [caller, setCaller] = useState("");
-  const route = useRoute();
-  const navigation = useNavigation();
+  const route = useRoute<DocumentRouteProps<"IncomingCall">>();
+  const navigation = useNavigation<DocumentNavigationProps<"IncomingCall">>();
   const { call } = route.params;
 
   useEffect(() => {
     setCaller(call.getEndpoints()[0].displayName);
 
     call.on(Voximplant.CallEvents.Disconnected, (callEvent) => {
-      navigation.navigate("Contacts");
+      navigation.navigate("ContactList");
     });
 
     return () => {
@@ -122,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IncomingCallScreen;
+export default IncomingCall;

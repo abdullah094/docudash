@@ -14,19 +14,12 @@ import {
   rgb,
   StandardFonts,
 } from "pdf-lib";
-import { RNFetchBlob } from "rn-fetch-blob";
-interface savedFile {
-  exists: boolean;
-  isDirectory: boolean;
-  modificationTime: number;
-  size: number;
-  uri: string;
-}
+import { DocumentNavigationProps, DocumentRouteProps } from "../types";
 
 const Signature = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const pdfPath = route.params?.path;
+  const navigation = useNavigation<DocumentNavigationProps<"Signature">>();
+  const route = useRoute<DocumentRouteProps<"Signature">>();
+  const pdfPath = decodeURI(route.params?.path);
 
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
@@ -44,67 +37,11 @@ const Signature = () => {
     setData(null);
   };
 
-  const onSave = function (signature) {
+  const onSave = function (signature: string) {
     EditPdf(signature);
-    // const path = FileSystem.cacheDirectory + "sign.png";
-    // FileSystem.writeAsStringAsync(
-    //   path,
-    //   signature.replace("data:image/png;base64,", ""),
-    //   { encoding: FileSystem.EncodingType.Base64 }
-    // )
-    //   .then(() => FileSystem.getInfoAsync(path))
-    //   .then((file) => {
-    //     const imageURI =
-    //       Platform.OS === "ios" ? file.uri.replace("file://", "") : file.uri;
-    //     EditPdf(signature);
-    //     // readPdfFile();
-    //   })
-    //   .catch(console.error);
-
-    // setData(`data:image/png;base64,${result.encoded}`);
-    // signatureView.current.show(false);
-    // navigation.navigate({
-    //   name: route.params?.routeName,
-    //   params: { image: signature },
-    //   merge: true,
-    // });
-    //we well add the signature to the redux store
   };
 
-  const readPdfFile = async () => {
-    try {
-      // const existingPDF =
-      //   Platform.OS === "ios" ? pdfPath.replace("file://", "") : pdfPath;
-      // Get the URI of the PDF file
-      const fileUri = pdfPath; // Replace with the actual file URI
-
-      // Read the PDF file
-      const fileInfo = await FileSystem.getInfoAsync(fileUri);
-      const { exists, uri } = fileInfo;
-      console.log("exists", exists);
-      if (!exists) {
-        console.log("PDF file does not exist.");
-        return;
-      }
-      const fileContent = await FileSystem.readAsStringAsync(fileUri, {
-        encoding: FileSystem.EncodingType.UTF8,
-      });
-      // Convert the UTF-8 string to Uint8Array
-      const fileBytes = Buffer.from(fileContent, "utf-8");
-
-      console.log("File Content (Uint8Array):", fileBytes);
-
-      // Print the extracted text content
-    } catch (error) {
-      console.log("Error reading PDF file:", error);
-    }
-  };
-
-  const EditPdf = async (imageURI) => {
-    // const existingPDF =
-    //   Platform.OS === "ios" ? pdfPath.replace("file://", "") : pdfPath;
-    // // console.log("existingPDF", existingPDF);
-
+  const EditPdf = async (imageURI: string | Uint8Array | ArrayBuffer) => {
     let options = { encoding: FileSystem.EncodingType.Base64 };
     const base64 = await FileSystem.readAsStringAsync(pdfPath, options)
       .then((data) => {
@@ -135,26 +72,27 @@ const Signature = () => {
     const { width, height } = firstPage.getSize();
 
     // Draw a string of text diagonally across the first page
-    firstPage.drawText("This text was added with JavaScript!", {
-      x: 5,
-      y: height / 2 + 300,
-      size: 50,
-      font: helveticaFont,
-      color: rgb(0.95, 0.1, 0.1),
-      rotate: degrees(-45),
-    });
+    // firstPage.drawText("This text was added with JavaScript!", {
+    //   x: 5,
+    //   y: height / 2 + 300,
+    //   size: 50,
+    //   font: helveticaFont,
+    //   color: rgb(0.95, 0.1, 0.1),
+    //   rotate: degrees(-45),
+    // });
     // Embed the JPG image bytes and PNG image bytes
     const pngImage = await pdfDoc.embedPng(imageURI);
     // Get the width/height of the JPG image scaled down to 25% of its original size
 
     // Get the width/height of the PNG image scaled down to 50% of its original size
-    const pngDims = pngImage.scale(0.5);
+    const pngDims = pngImage.scale(0.25);
+    console.log(pngDims);
     // Draw the PNG image near the lower right corner of the JPG image
     firstPage.drawImage(pngImage, {
-      x: 200,
-      y: 200,
-      width: 400,
-      height: 400,
+      x: width / 2 - pngDims.width / 2 + 75,
+      y: height / 2 - pngDims.height,
+      width: pngDims.width,
+      height: pngDims.height,
     });
 
     // Serialize the PDFDocument to bytes (a Uint8Array)
@@ -164,7 +102,7 @@ const Signature = () => {
       encoding: FileSystem.EncodingType.Base64,
     }).then((data) => {
       console.log("File saved:", data);
-      navigation.goBack();
+      navigation.navigate("DocumentList");
     });
 
     // For example, `pdfBytes` can be:

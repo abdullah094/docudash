@@ -194,64 +194,64 @@ const SearchScreen = () => {
            
         
           </TextInput> */}
-            <View
+            {/* <View
               style={{
                 marginTop: 10,
                 flexDirection: "row",
                 alignItems: "center",
               }}
-            >
-              <GooglePlacesAutocomplete
-                placeholder="Search for Notaries based in your city"
-                styles={{
-                  predefinedPlacesDescription: {
-                    color: "blue",
+            > */}
+            <GooglePlacesAutocomplete
+              placeholder="Search for Notaries based in your city"
+              styles={{
+                predefinedPlacesDescription: {
+                  color: "blue",
+                },
+                textInput: {
+                  height: 38,
+                  color: Colors.black,
+                  fontSize: 15,
+                },
+                listView: {
+                  backgroundColor: Colors.green,
+                },
+              }}
+              debounce={400}
+              GooglePlacesDetailsQuery={{ fields: "geometry" }}
+              fetchDetails={true}
+              renderRow={(rowData) => {
+                const title = rowData.structured_formatting.main_text;
+                const address = rowData.structured_formatting.secondary_text;
+                return (
+                  <View style={{ height: 18 }}>
+                    <Text style={{ fontSize: 13, color: Colors.black }}>
+                      {title} {address}
+                    </Text>
+                  </View>
+                );
+              }}
+              onPress={async (data, details = null) => {
+                mapViewRef.current.animateToRegion(
+                  {
+                    latitude: details?.geometry?.location.lat,
+                    longitude: details?.geometry?.location.lng,
+                    latitudeDelta: 0.95,
+                    longitudeDelta: 0.21,
                   },
-                  textInput: {
-                    height: 38,
-                    color: Colors.black,
-                    fontSize: 15,
-                  },
-                  listView: {
-                    backgroundColor: Colors.green,
-                  },
-                }}
-                debounce={400}
-                GooglePlacesDetailsQuery={{ fields: "geometry" }}
-                fetchDetails={true}
-                renderRow={(rowData) => {
-                  const title = rowData.structured_formatting.main_text;
-                  const address = rowData.structured_formatting.secondary_text;
-                  return (
-                    <View style={{ height: 18 }}>
-                      <Text style={{ fontSize: 13, color: Colors.black }}>
-                        {title} {address}
-                      </Text>
-                    </View>
-                  );
-                }}
-                onPress={async (data, details = null) => {
-                  mapViewRef.current.animateToRegion(
-                    {
-                      latitude: details?.geometry?.location.lat,
-                      longitude: details?.geometry?.location.lng,
-                      latitudeDelta: 0.95,
-                      longitudeDelta: 0.21,
-                    },
-                    2500
-                  );
-                  // 'details' is provided when fetchDetails = true
-                }}
-                query={{
-                  key: GOOGLE_MAPS_APIKEY,
-                  language: "en",
-                  components: "country:us",
-                }}
-              />
-              {/* <Pressable>
+                  2500
+                );
+                // 'details' is provided when fetchDetails = true
+              }}
+              query={{
+                key: GOOGLE_MAPS_APIKEY,
+                language: "en",
+                components: "country:us",
+              }}
+            />
+            {/* <Pressable>
           <EvilIcons name='close-o' size={35} color={Colors.white}/>
           </Pressable> */}
-            </View>
+            {/* </View> */}
           </View>
         </View>
         <TouchableWithoutFeedback

@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   Linking,
   Alert,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 import React, { useState } from "react";
 import Colors from "../styles/constants";
@@ -18,12 +20,13 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Foundation from "@expo/vector-icons/Foundation";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { DocumentNavigationProps, DocumentRouteProps } from "../types";
 
 const { width, height } = Dimensions.get("window");
 
 const Details = () => {
-  const route = useRoute();
-  const navigation = useNavigation();
+  const route = useRoute<DocumentRouteProps<"Details">>();
+  const navigation = useNavigation<DocumentNavigationProps<"Details">>();
   const { name } = route.params;
   const [seeMore, setSeeMore] = useState(false);
   const [rating, setRating] = useState(0);
@@ -70,11 +73,11 @@ const Details = () => {
         <Text style={styles.heading}>+1-123456789</Text>
         <View style={{ marginTop: 5 }}>
           <StarRating
-            disabled={false}
             maxStars={5}
             rating={4.5}
             starSize={20}
-            starStyle={{ color: Colors.golden }}
+            starStyle={{ color: Colors.golden } as StyleProp<ViewStyle>}
+            onChange={() => {}}
           />
         </View>
       </View>
@@ -127,7 +130,7 @@ const Details = () => {
           </View>
           <View style={[styles.tiny_box, { backgroundColor: "lightgreen" }]}>
             <Text style={styles.tiny_box_text}>
-              Exceptional Service 4.5{" "}
+              Exceptional Service 4.5
               <FontAwesome name={"star"} color={"gray"} size={13} /> (146)
             </Text>
           </View>

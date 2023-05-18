@@ -121,3 +121,6 @@ VoxEngine.addEventListener(AppEvents.CallAlerting ,(e)=>{
 ```
 
 31. go to routing the the vox admin and add new rule/
+
+32. add react native pdf
+    `yarn add react-native-pdf react-native-blob-util`

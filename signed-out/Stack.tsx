@@ -6,12 +6,13 @@ import ForgotPassword from "./ForgotPassword";
 import PhoneSignIn from "./PhoneSignIn";
 import SignIn from "./SignIn";
 import { NotFound } from "../components/NotFound";
-const Stack = createStackNavigator();
+import { SignOutParamList } from "../types";
+const Stack = createStackNavigator<SignOutParamList>();
 
 function SignedOutStack() {
   const appSettings = useAppSettings();
   return (
-    <Stack.Navigator initialRouteName="home">
+    <Stack.Navigator initialRouteName="SignIn">
       <Stack.Screen
         name="SignIn"
         component={SignIn}

@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useAppSettings } from "../components/AppSettings";
 import { NotFound } from "../components/NotFound";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import GettingStarted from "./App";
+import DocumentList from "./DocumentList";
 import Profile from "./Profile";
 import Settings from "./Settings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,19 +12,22 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Signature from "./Signature";
 import Map from "./Map";
 import Details from "./Details";
-import ContactsScreen from "./ContactsScreen";
-import CallScreen from "./CallScreen";
-import CallingScreen from "./CallingScreen";
-import IncomingCallScreen from "./IncomingCallScreen";
+import ContactList from "./ContactList";
+import CallScreen from "./Call";
+import CallingScreen from "./Calling";
+import IncomingCallScreen from "./IncomingCall";
+// @ts-ignore
 import { Voximplant } from "react-native-voximplant";
 import { useContext, useEffect, useState } from "react";
 import { getProviders } from "../util/helpers";
 import { UserContext } from "../App";
 import { Alert } from "react-native";
+import PDFViewer from "./PDFViewer";
+import { BottomTabParamList, DocumentParamList } from "../types";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<DocumentParamList>();
 const TopTabs = createMaterialTopTabNavigator();
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const ProfileStack = () => {
   const appSettings = useAppSettings();
@@ -52,11 +55,16 @@ const ProfileStack = () => {
 const SignatureStack = () => {
   const appSettings = useAppSettings();
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="DocumentList">
       <Stack.Screen
-        name="Documents"
-        component={GettingStarted}
+        name="DocumentList"
+        component={DocumentList}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PDFViewer"
+        options={{ title: appSettings.t("settings"), headerShown: false }}
+        component={PDFViewer}
       />
       <Stack.Screen
         name="Signature"
@@ -74,7 +82,7 @@ const SignatureStack = () => {
 const MapStack = () => {
   const appSettings = useAppSettings();
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="MapHome">
       <Stack.Screen
         name="MapHome"
         component={Map}
@@ -99,7 +107,7 @@ const CallNavigation = () => {
   return (
     <Stack.Navigator>
       {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
-      <Stack.Screen name="Contacts" component={ContactsScreen} />
+      <Stack.Screen name="ContactList" component={ContactList} />
 
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Call" component={CallScreen} />
@@ -131,7 +139,7 @@ const SignedIn = () => {
   const password = "123123";
   const voximplant = Voximplant.getInstance();
 
-  function convertCodeMessage(code) {
+  function convertCodeMessage(code: number) {
     switch (code) {
       case 401:
         return "Invalid password";
@@ -144,7 +152,7 @@ const SignedIn = () => {
     }
   }
 
-  function showLoginError(message) {
+  function showLoginError(message: string) {
     Alert.alert("Login error", message, [
       {
         text: "OK",
@@ -171,7 +179,7 @@ const SignedIn = () => {
           );
           console.log("connected");
         }
-      } catch (e) {
+      } catch (e: any) {
         let message;
         switch (e.name) {
           case Voximplant.ClientEvents.ConnectionFailed:
@@ -291,7 +299,7 @@ const TopTabStack = () => {
       <TopTabs.Screen
         name="Home"
         options={{ title: appSettings.t("gettingStarted") }}
-        component={GettingStarted}
+        component={DocumentList}
       />
       <TopTabs.Screen
         name="User"

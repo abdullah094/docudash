@@ -3,7 +3,11 @@ import { View, StyleSheet, Pressable } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-const CallActionBox = ({ onHangupPress }) => {
+const CallActionBox = ({
+  onHangupPress,
+}: {
+  onHangupPress: null | (() => void);
+}) => {
   const [isCameraOn, setIsCameraOn] = useState(true);
   const [isMicOn, setIsMicOn] = useState(true);
 
@@ -41,12 +45,14 @@ const CallActionBox = ({ onHangupPress }) => {
         />
       </Pressable>
 
-      <Pressable
-        onPress={onHangupPress}
-        style={[styles.iconButton, { backgroundColor: "red" }]}
-      >
-        <MaterialIcons name="phone-hangup" size={30} color={"white"} />
-      </Pressable>
+      {onHangupPress && (
+        <Pressable
+          onPress={onHangupPress}
+          style={[styles.iconButton, { backgroundColor: "red" }]}
+        >
+          <MaterialIcons name="phone-hangup" size={30} color={"white"} />
+        </Pressable>
+      )}
     </View>
   );
 };
