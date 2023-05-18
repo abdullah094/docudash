@@ -17,6 +17,7 @@ export type BottomTabParamList = {
   Map: undefined;
   CallingStack: undefined;
   User: undefined;
+  Forms: undefined;
 };
 
 export type RootRouteProps<RouteName extends keyof BottomTabParamList> =
@@ -26,9 +27,11 @@ export type RootNavigationProps<RouteName extends keyof BottomTabParamList> =
   StackNavigationProp<BottomTabParamList, RouteName>;
 
 export type DocumentParamList = {
+  SignedIn: undefined;
   UserProfile: undefined;
   UserSettings: undefined;
   NotFound: undefined;
+  DocumentHome: undefined;
   DocumentList: undefined;
   PDFViewer: { path: string };
   Signature: { path: string };
@@ -45,6 +48,8 @@ export type DocumentParamList = {
   IncomingCall: { call: any };
   Schedule: undefined;
   ScheduleForm: { date: string };
+  PurchasedFormList: undefined;
+  PurchasedFormDetails: { form: Form };
 };
 
 export type DocumentRouteProps<RouteName extends keyof DocumentParamList> =
@@ -66,3 +71,24 @@ export type SignOutRouteProps<RouteName extends keyof SignOutParamList> =
 
 export type SignOutNavigationProps<RouteName extends keyof SignOutParamList> =
   StackNavigationProp<SignOutParamList, RouteName>;
+
+export type FormTabParamList = {
+  FormList: undefined;
+  PurchasedForm: undefined;
+  Home: undefined;
+  User: undefined;
+};
+
+export type FormTabRouteProps<RouteName extends keyof FormTabParamList> =
+  RouteProp<FormTabParamList, RouteName>;
+
+export type FormTabNavigationProps<RouteName extends keyof FormTabParamList> =
+  StackNavigationProp<FormTabParamList, RouteName>;
+
+export interface Form {
+  id: number;
+  name: string;
+  email: string;
+  "contact number": string;
+  message: string;
+}

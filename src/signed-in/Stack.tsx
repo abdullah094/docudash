@@ -25,10 +25,21 @@ import { Alert } from "react-native";
 import PDFViewer from "./PDFViewer";
 import Schedule from "./Schedule";
 import ScheduleForm from "./ScheduleForm";
-import { BottomTabParamList, DocumentParamList } from "../types";
+import {
+  BottomTabParamList,
+  DocumentParamList,
+  FormTabParamList,
+} from "../types";
+import FormList from "./FormList";
+import FormProvider, { useForms } from "../context/FormProvider";
+import PurchasedFormList from "./PurchasedFormList";
+import PurchasedFormDetails from "./PurchasedFormDetails";
+import { Entypo } from "@expo/vector-icons";
+import { Badge } from "react-native-paper";
+import Home from "./Home";
 
 const Stack = createStackNavigator<DocumentParamList>();
-const TopTabs = createMaterialTopTabNavigator();
+const TopTabs = createMaterialTopTabNavigator<FormTabParamList>();
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 const ProfileStack = () => {
@@ -61,7 +72,7 @@ const SignatureStack = () => {
       <Stack.Screen
         name="DocumentList"
         component={DocumentList}
-        options={{ headerShown: false }}
+        options={{ title: "Documents" }}
       />
       <Stack.Screen
         name="PDFViewer"
@@ -240,7 +251,7 @@ const SignedIn = () => {
   };
 
   const appSettings = useAppSettings();
-
+  const { savedForms } = useForms();
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -249,9 +260,10 @@ const SignedIn = () => {
       <BottomTab.Screen
         name="Home"
         options={{
-          title: appSettings.t("gettingStarted"),
+          title: appSettings.t("Documents"),
+          headerShown: false,
           tabBarIcon: ({ color }) => (
-            <Icon name="home" size={30} color={color} />
+            <Entypo name="documents" size={24} color={color} />
           ),
         }}
         component={SignatureStack}
@@ -261,11 +273,7 @@ const SignedIn = () => {
         options={{
           title: appSettings.t("Map"),
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="file-document-edit-outline"
-              size={30}
-              color={color}
-            />
+            <MaterialCommunityIcons name="map" size={30} color={color} />
           ),
         }}
         component={MapStack}
@@ -275,15 +283,32 @@ const SignedIn = () => {
         name="CallingStack"
         options={{
           title: appSettings.t("Calling"),
+
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="phone" size={30} color={color} />
+          ),
+        }}
+        component={CallNavigation}
+      />
+
+      <BottomTab.Screen
+        name="Forms"
+        options={{
+          title: appSettings.t("Forms"),
+          headerRight: (props) => (
+            <Badge {...props} style={{ margin: 15 }}>
+              {10 - savedForms.length + "$"}
+            </Badge>
+          ),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
-              name="file-document-edit-outline"
-              size={30}
+              name="folder-lock"
+              size={24}
               color={color}
             />
           ),
         }}
-        component={CallNavigation}
+        component={FormTopStack}
       />
 
       <BottomTab.Screen
@@ -299,6 +324,91 @@ const SignedIn = () => {
     </BottomTab.Navigator>
   );
 };
+
+const PurchasedFormStack = () => {
+  const appSettings = useAppSettings();
+  return (
+    <Stack.Navigator initialRouteName="PurchasedFormList">
+      <Stack.Screen
+        name="PurchasedFormList"
+        component={PurchasedFormList}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="PurchasedFormDetails"
+        options={{
+          title: appSettings.t("PurchasedFormDetails"),
+          headerShown: false,
+        }}
+        component={PurchasedFormDetails}
+      />
+    </Stack.Navigator>
+  );
+};
+// SignedIn
+const FormTopStack = () => {
+  // Used for status bar layout in react-navigation
+  const insets = useSafeAreaInsets();
+  const appSettings = useAppSettings();
+
+  const screenOptions = {
+    tabBarStyle: {
+      // paddingTop: insets.top,
+    },
+  };
+
+  return (
+    <TopTabs.Navigator
+      initialRouteName="FormList"
+      screenOptions={screenOptions}
+    >
+      <TopTabs.Screen
+        name="FormList"
+        options={{
+          title: appSettings.t("FormList"),
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="folder-lock"
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+        component={FormList}
+      />
+      <TopTabs.Screen
+        name="PurchasedForm"
+        options={{
+          title: appSettings.t("PurchasedForm"),
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="folder-lock-open"
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+        component={PurchasedFormStack}
+      />
+    </TopTabs.Navigator>
+  );
+};
+
+const HomeNavigation = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="DocumentHome"
+      component={Home}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="SignedIn"
+      component={SignedIn}
+      // options={{ headerShown: false }}
+    />
+  </Stack.Navigator>
+);
+
 // SignedIn
 const TopTabStack = () => {
   // Used for status bar layout in react-navigation
@@ -327,4 +437,4 @@ const TopTabStack = () => {
   );
 };
 
-export default SignedIn;
+export default HomeNavigation;

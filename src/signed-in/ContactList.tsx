@@ -37,12 +37,16 @@ const ContactList = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const newContacts = dummyContacts.filter((contact) =>
-  //     contact.user_display_name.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  //   setFilteredContacts(newContacts);
-  // }, [searchTerm]);
+  useEffect(() => {
+    const newContacts = dummyContacts
+      .filter((x) => x.user_name !== user?.email?.split("@")[0])
+      .filter((contact) =>
+        contact.user_display_name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      );
+    setFilteredContacts(newContacts);
+  }, [searchTerm]);
 
   const callUser = (user: {
     user_id: string;

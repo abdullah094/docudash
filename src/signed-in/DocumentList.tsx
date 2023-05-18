@@ -4,12 +4,17 @@ import {
   Touchable,
   TouchableOpacity,
   FlatList,
+  Pressable,
+  StyleSheet,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as DocumentPicker from "expo-document-picker";
 import tw from "twrnc";
 import FileItem from "../components/FileItem";
 import * as FileSystem from "expo-file-system";
+import AntDesign from "@expo/vector-icons/AntDesign";
+const { width, height } = Dimensions.get("window");
 export default function DocumentList() {
   const [documents, setDocuments] = useState<FileSystem.FileInfo[]>([]);
   const pickDocument = async () => {
@@ -90,8 +95,62 @@ export default function DocumentList() {
   return (
     <View style={tw`flex-1 bg-white items-center justify-center`}>
       <TouchableOpacity onPress={pickDocument}>
-        <Text>Get document</Text>
+        <Text
+          style={tw` p-4 mt-2 border rounded-lg overflow-hidden  bg-[#6FAC46] border-gray-300`}
+        >
+          Add a document
+        </Text>
       </TouchableOpacity>
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingVertical: 15,
+          justifyContent: "center",
+          backgroundColor: "white",
+        }}
+      >
+        <View style={styles.box}>
+          <Text style={[styles.box_text, { fontSize: 25 }]}>
+            {documents.length}
+          </Text>
+          <Text style={styles.box_text}>Documents uploaded</Text>
+        </View>
+        <View style={styles.box}>
+          <Text style={[styles.box_text, { fontSize: 25 }]}>0</Text>
+          <Text style={styles.box_text}>Documents Signed</Text>
+        </View>
+      </View>
+
+      {/* <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          backgroundColor: "white",
+          alignItems: "center",
+        }}
+      >
+        {documents.length > 0 ? (
+          <FlatList
+            data={documents}
+            renderItem={({ item }) => <FileItem item={item}></FileItem>}
+          />
+        ) : (
+          <Pressable style={{ alignItems: "center" }} onPress={pickDocument}>
+            <AntDesign name="pluscircleo" size={50} color="gray" />
+            <Text
+              style={{
+                marginTop: 10,
+                color: "gray",
+                fontSize: 16,
+              }}
+            >
+              Add a document
+            </Text>
+          </Pressable>
+        )}
+      </View> */}
       <FlatList
         data={documents}
         renderItem={({ item }) => <FileItem item={item}></FileItem>}
@@ -99,3 +158,27 @@ export default function DocumentList() {
     </View>
   );
 }
+const styles = StyleSheet.create({
+  menu_text: {
+    fontSize: 18,
+    marginTop: 2,
+    padding: 5,
+    color: "black",
+  },
+  box: {
+    borderWidth: 1,
+    width: width / 2 - 25,
+    padding: 5,
+    alignItems: "center",
+    marginHorizontal: 10,
+    height: 120,
+    justifyContent: "center",
+    borderColor: "gray",
+    borderRadius: 10,
+  },
+  box_text: {
+    textAlign: "center",
+    marginTop: 5,
+    color: "black",
+  },
+});

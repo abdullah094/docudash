@@ -182,5 +182,10 @@ export const english: translation = {
   Map: "Map",
   Calling: "Calling",
   Schedule: "Schedule",
-  ScheduleForm: "ScheduleForm",
+  ScheduleForm: "Schedule Form",
+  FormList: "Form List",
+  Documents: "Documents",
+  PurchasedForm: "Purchased Form",
+  PurchasedFormDetails: "Purchased Form Details",
+  Forms: "Forms",
 };

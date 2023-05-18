@@ -14,11 +14,17 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "config": {
+        "googleMapsApiKey": "AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4"
+      },
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "host.exp.exponent"
     },
     "android": {
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4" }
+      },
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

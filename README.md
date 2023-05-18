@@ -124,3 +124,8 @@ VoxEngine.addEventListener(AppEvents.CallAlerting ,(e)=>{
 
 32. add react native pdf
     `yarn add react-native-pdf react-native-blob-util`
+33. add react native calender
+    `yarn add react-native-calendars`
+
+34. add react native storage to save data
+    `yarn add @react-native-async-storage/async-storage`

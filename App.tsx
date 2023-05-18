@@ -16,6 +16,8 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { useAppSettings } from "./src/components/AppSettings";
 import { AlertsProvider } from "react-native-paper-alerts";
+import FormProvider from "./src/context/FormProvider";
+import HomeNavigation from "./src/signed-in/Stack";
 
 /**
  * Types
@@ -154,7 +156,9 @@ function App(): JSX.Element {
   return container(
     user ? (
       <UserContext.Provider value={user}>
-        <SignedInStack />
+        <FormProvider>
+          <HomeNavigation />
+        </FormProvider>
       </UserContext.Provider>
     ) : (
       <SignedOutStack />
