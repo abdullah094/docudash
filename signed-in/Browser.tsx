@@ -12,7 +12,7 @@ const Browser = () => {
 
     const navigation = useNavigation();
     const route = useRoute();
-    const pdfPath = route.params?.path;
+    const pdfPath = decodeURI(route.params?.path);
 
 console.log(pdfPath)
 const [data, setData] = useState()
@@ -34,7 +34,7 @@ useEffect(() => {
 file();
 }, [pdfPath,route])
 
-
+console.log(pdfPath)
 
 
 
@@ -45,11 +45,23 @@ file();
    <Text style={{color:Colors.white}}>Sign Document</Text>
    </Button>
        
-    <Pdf
-   
-    source={{uri:`data:application/pdf;base64,${data}`}}
-    style={styles.pdf}
-/>
+   <View style={styles.container}>
+                <Pdf
+                    source={{uri :pdfPath}}
+                    onLoadComplete={(numberOfPages,filePath) => {
+                        console.log(`Number of pages: ${numberOfPages}`);
+                    }}
+                    onPageChanged={(page,numberOfPages) => {
+                        console.log(`Current page: ${page}`);
+                    }}
+                    onError={(error) => {
+                        console.log(error);
+                    }}
+                    onPressLink={(uri) => {
+                        console.log(`Link pressed: ${uri}`);
+                    }}
+                    style={styles.pdf}/>
+            </View>
 </>
   )
 }

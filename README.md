@@ -121,3 +121,6 @@ VoxEngine.addEventListener(AppEvents.CallAlerting ,(e)=>{
 ```
 
 31. go to routing the the vox admin and add new rule/
+
+32. `eas build -p android --profile preview`
+     build apk file via eas  
