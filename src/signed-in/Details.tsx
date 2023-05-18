@@ -221,14 +221,14 @@ const Details = () => {
             <View style={styles.badge_box}>
               <Image
                 style={styles.badge_image}
-                source={require("../assets/badge.png")}
+                source={require("../../assets/badge.png")}
               />
               <Text style={styles.badge_box_text}>2021</Text>
             </View>
             <View style={styles.badge_box}>
               <Image
                 style={styles.badge_image}
-                source={require("../assets/badge.png")}
+                source={require("../../assets/badge.png")}
               />
               <Text style={styles.badge_box_text}>2022</Text>
             </View>

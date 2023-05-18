@@ -20,9 +20,11 @@ import IncomingCallScreen from "./IncomingCall";
 import { Voximplant } from "react-native-voximplant";
 import { useContext, useEffect, useState } from "react";
 import { getProviders } from "../util/helpers";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import { Alert } from "react-native";
 import PDFViewer from "./PDFViewer";
+import Schedule from "./Schedule";
+import ScheduleForm from "./ScheduleForm";
 import { BottomTabParamList, DocumentParamList } from "../types";
 
 const Stack = createStackNavigator<DocumentParamList>();
@@ -93,6 +95,17 @@ const MapStack = () => {
         options={{ title: appSettings.t("settings"), headerShown: false }}
         component={Details}
       />
+
+      <Stack.Screen
+        name="Schedule"
+        component={Schedule}
+        options={{ title: appSettings.t("Schedule"), headerShown: false }}
+      />
+      <Stack.Screen
+        name="ScheduleForm"
+        component={ScheduleForm}
+        options={{ title: appSettings.t("ScheduleForm"), headerShown: false }}
+      />
       <Stack.Screen
         name="NotFound"
         component={NotFound}
@@ -107,7 +120,11 @@ const CallNavigation = () => {
   return (
     <Stack.Navigator>
       {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
-      <Stack.Screen name="ContactList" component={ContactList} />
+      <Stack.Screen
+        name="ContactList"
+        component={ContactList}
+        options={{ headerShown: false }}
+      />
 
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Call" component={CallScreen} />

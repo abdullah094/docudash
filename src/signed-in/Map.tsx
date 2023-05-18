@@ -15,13 +15,15 @@ import Colors from "../styles/constants";
 import Entypo from "@expo/vector-icons/Entypo";
 import EvilIcons from "@expo/vector-icons/EvilIcons";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+// @ts-ignore
 import { GOOGLE_MAPS_APIKEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import tw from "twrnc";
+import { DocumentNavigationProps } from "../types";
 
 const { width, height } = Dimensions.get("window");
 const SearchScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<DocumentNavigationProps<"MapHome">>();
   const [data, setData] = useState([
     {
       name: "John Smith",
@@ -140,7 +142,8 @@ const SearchScreen = () => {
     },
   ]);
 
-  const mapViewRef = useRef(null);
+  const mapViewRef = useRef<MapView | null>(null);
+  null;
   const [headerHide, setHeaderHide] = useState(false);
   const [newRegion, setNewRegion] = useState({
     latitude: 29.76604135560118,
@@ -148,12 +151,6 @@ const SearchScreen = () => {
     latitudeDelta: 0.95,
     longitudeDelta: 0.21,
   });
-
-  // console.log(newRegion)
-  // useEffect(()=>{
-  //   console.log("useeffect")
-  //   mapViewRef.current.animateToRegion( newRegion, 2000)
-  // },[newRegion])
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -231,10 +228,10 @@ const SearchScreen = () => {
                 );
               }}
               onPress={async (data, details = null) => {
-                mapViewRef.current.animateToRegion(
+                mapViewRef.current?.animateToRegion(
                   {
-                    latitude: details?.geometry?.location.lat,
-                    longitude: details?.geometry?.location.lng,
+                    latitude: details?.geometry?.location.lat ?? 0,
+                    longitude: details?.geometry?.location.lng ?? 0,
                     latitudeDelta: 0.95,
                     longitudeDelta: 0.21,
                   },
@@ -288,7 +285,7 @@ const SearchScreen = () => {
                 >
                   <Image
                     style={{ width: 50, height: 60 }}
-                    source={require("../assets/pin.png")}
+                    source={require("../../assets/pin.png")}
                   />
                 </Marker>
               );

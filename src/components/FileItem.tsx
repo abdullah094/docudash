@@ -20,7 +20,6 @@ import moment from "moment";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { fileIcons } from "../util/Constants";
-import { fileItem } from "../type";
 
 import * as FileSystem from "expo-file-system";
 import { DocumentNavigationProps, DocumentRouteProps } from "../types";

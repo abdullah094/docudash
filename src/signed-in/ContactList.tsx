@@ -10,8 +10,8 @@ import {
 import { useNavigation } from "@react-navigation/core";
 // @ts-ignore
 import { Voximplant } from "react-native-voximplant";
-import dummyContacts from "../assets/data/contacts.json";
-import { UserContext } from "../App";
+import dummyContacts from "../../assets/data/contacts.json";
+import { UserContext } from "../../App";
 import { DocumentNavigationProps } from "../types";
 
 const ContactList = () => {
@@ -25,9 +25,12 @@ const ContactList = () => {
   const voximplant = Voximplant.getInstance();
 
   useEffect(() => {
-    voximplant.on(Voximplant.ClientEvents.IncomingCall, (incomingCallEvent) => {
-      navigation.navigate("IncomingCall", { call: incomingCallEvent.call });
-    });
+    voximplant.on(
+      Voximplant.ClientEvents.IncomingCall,
+      (incomingCallEvent: any) => {
+        navigation.navigate("IncomingCall", { call: incomingCallEvent.call });
+      }
+    );
 
     return () => {
       voximplant.off(Voximplant.ClientEvents.IncomingCall);
@@ -41,7 +44,11 @@ const ContactList = () => {
   //   setFilteredContacts(newContacts);
   // }, [searchTerm]);
 
-  const callUser = (user) => {
+  const callUser = (user: {
+    user_id: string;
+    user_name: string;
+    user_display_name: string;
+  }) => {
     navigation.navigate("Calling", { user });
   };
 

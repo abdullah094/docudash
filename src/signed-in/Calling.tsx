@@ -34,7 +34,7 @@ const Calling = () => {
   const voximplant = Voximplant.getInstance();
 
   const call = useRef(incomingCall);
-  const endpoint = useRef(null);
+  const endpoint = useRef<any>(null);
 
   const goBack = () => {
     navigation.pop();
@@ -87,26 +87,29 @@ const Calling = () => {
     };
 
     const subscribeToCallEvents = () => {
-      call.current.on(Voximplant.CallEvents.Failed, (callEvent) => {
+      call.current.on(Voximplant.CallEvents.Failed, (callEvent: any) => {
         console.log(callEvent);
         showError(callEvent.reason);
       });
-      call.current.on(Voximplant.CallEvents.ProgressToneStart, (callEvent) => {
-        setCallStatus("Calling...");
-      });
-      call.current.on(Voximplant.CallEvents.Connected, (callEvent) => {
+      call.current.on(
+        Voximplant.CallEvents.ProgressToneStart,
+        (callEvent: any) => {
+          setCallStatus("Calling...");
+        }
+      );
+      call.current.on(Voximplant.CallEvents.Connected, (callEvent: any) => {
         setCallStatus("Connected");
       });
-      call.current.on(Voximplant.CallEvents.Disconnected, (callEvent) => {
-        navigation.navigate("Contacts");
+      call.current.on(Voximplant.CallEvents.Disconnected, (callEvent: any) => {
+        navigation.navigate("ContactList");
       });
       call.current.on(
         Voximplant.CallEvents.LocalVideoStreamAdded,
-        (callEvent) => {
+        (callEvent: any) => {
           setLocalVideoStreamId(callEvent.videoStream.id);
         }
       );
-      call.current.on(Voximplant.CallEvents.EndpointAdded, (callEvent) => {
+      call.current.on(Voximplant.CallEvents.EndpointAdded, (callEvent: any) => {
         endpoint.current = callEvent.endpoint;
         subscribeToEndpointEvent();
       });
@@ -115,17 +118,17 @@ const Calling = () => {
     const subscribeToEndpointEvent = async () => {
       endpoint.current.on(
         Voximplant.EndpointEvents.RemoteVideoStreamAdded,
-        (endpointEvent) => {
+        (endpointEvent: any) => {
           setRemoteVideoStreamId(endpointEvent.videoStream.id);
         }
       );
     };
 
-    const showError = (reason) => {
+    const showError = (reason: string) => {
       Alert.alert("Call failed", `Reason: ${reason}`, [
         {
           text: "Ok",
-          onPress: navigation.navigate("Contacts"),
+          onPress: () => navigation.navigate("ContactList"),
         },
       ]);
     };

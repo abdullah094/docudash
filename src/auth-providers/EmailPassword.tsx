@@ -89,7 +89,7 @@ function EmailPassword(): JSX.Element {
       <Image
         style={styles.icon}
         resizeMode="contain"
-        source={require("../assets/vertical-logo.png")}
+        source={require("../../assets/vertical-logo.png")}
       />
       <TextInput
         style={tw`mb-2`}

@@ -13,7 +13,7 @@ import {
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { useLinkTo } from "@react-navigation/native";
 
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import Hero from "../components/Hero";
 import Provider from "../components/AuthProvider";
 import Facebook from "../auth-providers/Facebook";

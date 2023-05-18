@@ -1,6 +1,16 @@
+import { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Image, ImageSourcePropType } from "react-native/types";
+
+/**
+ * Types
+ */
+export type User = FirebaseAuthTypes.User | null;
+
+/**
+ * Contexts
+ */
 
 export type BottomTabParamList = {
   Home: undefined;
@@ -26,8 +36,15 @@ export type DocumentParamList = {
   Details: { name: string };
   ContactList: undefined;
   Call: undefined;
-  Calling: { user: any; call: any; incomingCall: boolean; isIncomingCall: any };
+  Calling: {
+    user: any;
+    call?: any;
+    incomingCall?: boolean;
+    isIncomingCall?: any;
+  };
   IncomingCall: { call: any };
+  Schedule: undefined;
+  ScheduleForm: { date: string };
 };
 
 export type DocumentRouteProps<RouteName extends keyof DocumentParamList> =

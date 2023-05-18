@@ -183,4 +183,8 @@ export const spanish: translation = {
   WelcomeMessage: "Bienvenida a la docudash",
   "Notarize Instantly": "Notarizar al instante",
   "Anywhere, Anytime": "En cualquier lugar en cualquier momento",
+  Map: "Map",
+  Calling: "Calling",
+  Schedule: "Schedule",
+  ScheduleForm: "ScheduleForm",
 };

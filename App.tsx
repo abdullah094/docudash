@@ -7,14 +7,14 @@ import {
   ActivityIndicator,
   Provider as PaperProvider,
 } from "react-native-paper";
-import SignedInStack from "./signed-in/Stack";
-import SignedOutStack from "./signed-out/Stack";
+import SignedInStack from "./src/signed-in/Stack";
+import SignedOutStack from "./src/signed-out/Stack";
 import {
   initialWindowMetrics,
   SafeAreaProvider,
 } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import { useAppSettings } from "./components/AppSettings";
+import { useAppSettings } from "./src/components/AppSettings";
 import { AlertsProvider } from "react-native-paper-alerts";
 
 /**

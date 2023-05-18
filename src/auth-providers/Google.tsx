@@ -7,7 +7,7 @@ import {
   statusCodes,
 } from "@react-native-google-signin/google-signin";
 
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import { useAppSettings } from "../components/AppSettings";
 import ProviderButton from "../components/AuthProviderButton";
 import { getProviderButtonTitle } from "../util/helpers";
@@ -111,7 +111,7 @@ function Google(): JSX.Element | null {
     GoogleSignin.configure({
       scopes: ["profile", "email"],
       // TODO: Get your web client id from firebase console --> Project Settings --> Auth --> Google Sign-in
-      webClientId: require("../google-services.json").webClientId,
+      webClientId: require("../../google-services.json").webClientId,
     });
   }, []);
 

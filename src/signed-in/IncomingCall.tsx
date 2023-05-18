@@ -6,7 +6,7 @@ import {
   ImageBackground,
   Pressable,
 } from "react-native";
-import bg from "../assets/ios_bg.png";
+
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Entypo from "@expo/vector-icons/Entypo";
 import Feather from "@expo/vector-icons/Feather";
@@ -24,7 +24,7 @@ const IncomingCall = () => {
   useEffect(() => {
     setCaller(call.getEndpoints()[0].displayName);
 
-    call.on(Voximplant.CallEvents.Disconnected, (callEvent) => {
+    call.on(Voximplant.CallEvents.Disconnected, (callEvent: any) => {
       navigation.navigate("ContactList");
     });
 
@@ -38,6 +38,7 @@ const IncomingCall = () => {
   };
 
   const onAccept = () => {
+    //@ts-ignore
     navigation.navigate("Calling", {
       call,
       isIncomingCall: true,
@@ -45,7 +46,11 @@ const IncomingCall = () => {
   };
 
   return (
-    <ImageBackground source={bg} style={styles.bg} resizeMode="cover">
+    <ImageBackground
+      source={require("../../assets/ios_bg.png")}
+      style={styles.bg}
+      resizeMode="cover"
+    >
       <Text style={styles.name}>{caller}</Text>
       <Text style={styles.phoneNumber}>WhatsApp video...</Text>
 
