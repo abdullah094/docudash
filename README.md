@@ -71,7 +71,7 @@ import 'react-native-gesture-handler';
 
 18. add signature view `yarn add react-native-signature-canvas`
 
-- add react native webview as its the depedency use `npx expo install react-native-webview`
+- add react native webview as its the dependency use `npx expo install react-native-webview`
 
 20. add file picker
     `npx expo install expo-document-picker `
@@ -129,3 +129,5 @@ VoxEngine.addEventListener(AppEvents.CallAlerting ,(e)=>{
 
 34. add react native storage to save data
     `yarn add @react-native-async-storage/async-storage`
+
+35. https://expo.dev/register-device/62f7d54f-d8c6-4e2f-93a0-868db0491055

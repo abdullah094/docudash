@@ -19,18 +19,20 @@
       },
       "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
-      "bundleIdentifier": "host.exp.exponent"
+      "bundleIdentifier": "com.wizard.docudash"
     },
     "android": {
       "config": {
-        "googleMaps": { "apiKey": "AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4" }
+        "googleMaps": {
+          "apiKey": "AIzaSyClYAkI28o4JC8de56LH0xpNWtX-TWIKr4"
+        }
       },
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "host.exp.exponent"
+      "package": "com.wizard.docudash"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -39,6 +41,7 @@
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
       "@react-native-google-signin/google-signin",
+      "./react-native-maps-plugin",
       [
         "expo-build-properties",
         {
@@ -47,6 +50,11 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2d190d72-de74-499a-bed4-e999451db503"
+      }
+    }
   }
 }

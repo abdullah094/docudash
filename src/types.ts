@@ -42,8 +42,8 @@ export type DocumentParamList = {
   Calling: {
     user: any;
     call?: any;
-    incomingCall?: boolean;
-    isIncomingCall?: any;
+    // incomingCall?: boolean;
+    isIncomingCall?: boolean;
   };
   IncomingCall: { call: any };
   Schedule: undefined;

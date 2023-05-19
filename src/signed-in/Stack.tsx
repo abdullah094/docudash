@@ -404,7 +404,7 @@ const HomeNavigation = () => (
     <Stack.Screen
       name="SignedIn"
       component={SignedIn}
-      // options={{ headerShown: false }}
+      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );
