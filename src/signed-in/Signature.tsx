@@ -15,6 +15,8 @@ import {
   StandardFonts,
 } from "pdf-lib";
 import { DocumentNavigationProps, DocumentRouteProps } from "../types";
+import Loading from "../components/Loading";
+
 
 const Signature = () => {
   const navigation = useNavigation<DocumentNavigationProps<"Signature">>();
