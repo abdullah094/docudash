@@ -85,7 +85,7 @@ export default function FileItem({ item }: Props) {
           style={styles.itemLeft}
           activeOpacity={0.5}
           // onPress={() => navigation.navigate("Signature", { path: item.uri })}
-          onPress={() => navigation.navigate("PDFViewer", { path: item.uri })}
+          onPress={() => navigation.navigate("WhoWillSign", { path: item.uri })}
         >
           <View style={styles.itemThumbnail}>
             {itemType && <ItemThumbnail />}

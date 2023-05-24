@@ -37,6 +37,8 @@ import PurchasedFormDetails from "./PurchasedFormDetails";
 import { Entypo } from "@expo/vector-icons";
 import { Badge } from "react-native-paper";
 import Home from "./Home";
+import WhoWillSign from "./WhoWillSign";
+import SelectTemplate from "./SelectTemplate";
 
 const Stack = createStackNavigator<DocumentParamList>();
 const TopTabs = createMaterialTopTabNavigator<FormTabParamList>();
@@ -78,6 +80,16 @@ const SignatureStack = () => {
         name="PDFViewer"
         options={{ title: appSettings.t("settings"), headerShown: false }}
         component={PDFViewer}
+      />
+      <Stack.Screen
+        name="WhoWillSign"
+        options={{ title: appSettings.t("settings"), headerShown: false }}
+        component={WhoWillSign}
+      />
+      <Stack.Screen
+        name="SelectTemplate"
+        options={{ title: appSettings.t("settings"), headerShown: false }}
+        component={SelectTemplate}
       />
       <Stack.Screen
         name="Signature"
