@@ -254,7 +254,11 @@ const Details = () => {
             <TouchableOpacity
               style={styles.contact_button}
               onPress={() =>
-                Linking.openURL("https://join.skype.com/invite/LZXNciOF2MgC")
+                navigation.navigate("Calling", { user:{
+                  "user_id": "3",
+                  "user_name": "testapp",
+                  "user_display_name": "Test User"
+                } })
               }
             >
               <Text
